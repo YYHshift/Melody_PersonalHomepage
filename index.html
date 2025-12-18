@@ -4,25 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melody Huang - Electrical Engineer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #004e92; /* 工程深蓝 */
             --secondary-color: #000428; /* 深夜蓝 */
-            --accent-color: #3498db; /* 亮蓝点缀 */
-            --bg-color: #f8f9fa;
+            --accent-color: #00d2ff; /* 亮电光蓝 */
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
             --text-color: #333;
             --light-text: #666;
-            --white: #ffffff;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            /* 工程绘图纸风格背景 */
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         /* 布局容器 */
@@ -30,108 +45,196 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
+            /* 让内容按顺序淡入 */
+            animation: fadeIn 0.8s ease-out;
         }
 
         /* 头部样式 */
         header {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            color: var(--white);
-            padding: 60px 20px;
+            /* 动态渐变背景 */
+            background: linear-gradient(-45deg, var(--secondary-color), var(--primary-color), #2c3e50, #004e92);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            
+            color: white;
+            padding: 80px 20px;
             text-align: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,78,146,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 头部背景装饰图案 */
+        header::before {
+            content: '\f0e7'; /* 闪电图标 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 15rem;
+            opacity: 0.05;
+            color: white;
+            transform: rotate(-15deg);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         header .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 10px;
-            opacity: 0.9;
+            opacity: 0.95;
             font-weight: 300;
+            background: rgba(255,255,255,0.1);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .contact-info {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-info a {
-            color: var(--white);
+            color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.15);
             border-radius: 50px;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .contact-info a:hover {
-            background: rgba(255,255,255,0.25);
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* 版块通用样式 */
+        /* 版块卡片样式 */
         section {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
+        /* 卡片悬停效果 - 浮起 */
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,78,146,0.1);
+            border-color: rgba(0,78,146,0.1);
+        }
+
+        /* 标题样式 */
         h2 {
             color: var(--primary-color);
             border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
             margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: var(--accent-color); /* 图标高亮 */
         }
 
         /* 关于我 */
         .summary p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: #444;
+            line-height: 1.8;
         }
 
-        /* 技能标签 */
+        /* 技能标签 - 胶囊样式 */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .skill-tag {
-            background: #e3f2fd;
+            background: #f0f7ff;
             color: var(--primary-color);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 50px; /* 圆角胶囊 */
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid #cce4ff;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
         }
 
         .category-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #888;
-            margin: 10px 0 5px;
+            margin: 15px 0 8px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
         }
 
-        /* 经历与项目 */
+        /* 经历时间轴样式 */
         .timeline-item {
-            margin-bottom: 25px;
-            padding-left: 15px;
-            border-left: 3px solid var(--accent-color);
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 30px;
+            border-left: 3px solid #e0e0e0; /* 时间轴线 */
+            transition: border-color 0.3s;
+        }
+
+        /* 鼠标悬停时点亮时间轴 */
+        section:hover .timeline-item {
+            border-left-color: var(--accent-color);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8.5px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        section:hover .timeline-item::before {
+            background: var(--accent-color);
         }
 
         .timeline-item:last-child {
@@ -140,7 +243,7 @@
 
         .job-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #2c3e50;
         }
 
@@ -148,19 +251,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--light-text);
             font-size: 0.95rem;
+            background: #f9f9f9;
+            padding: 5px 10px;
+            border-radius: 6px;
         }
 
         .job-details {
             margin: 0;
-            padding-left: 20px;
+            padding-left: 5px;
+            list-style: none; /* 去掉默认圆点 */
         }
 
+        /* 自定义列表图标 (闪电) */
         .job-details li {
-            margin-bottom: 6px;
-            color: #444;
+            margin-bottom: 8px;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .job-details li::before {
+            content: '\f0e7'; /* FontAwesome 闪电 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 4px;
+            font-size: 0.8rem;
         }
 
         /* 教育背景 */
@@ -168,37 +289,55 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 15px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s;
+        }
+
+        .edu-item:hover {
+            transform: translateX(5px);
+            background: #f0f7ff;
         }
         
         .edu-item:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .edu-school {
             font-weight: bold;
             font-size: 1.1rem;
+            color: var(--primary-color);
         }
         
         .edu-degree {
-            color: var(--light-text);
+            color: #555;
+            margin-top: 4px;
         }
 
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 40px;
             color: #888;
             font-size: 0.9rem;
+        }
+        
+        footer i { color: #e74c3c; animation: beat 1s infinite; }
+        
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* 响应式调整 */
         @media (max-width: 600px) {
-            header h1 { font-size: 2rem; }
-            .company-info { flex-direction: column; align-items: flex-start; }
-            .edu-item { flex-direction: column; }
+            header h1 { font-size: 2.2rem; }
+            .company-info { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .edu-item { flex-direction: column; gap: 5px; }
             .edu-date { font-size: 0.9rem; color: #888; }
+            section { padding: 20px; }
         }
     </style>
 </head>
@@ -207,13 +346,15 @@
     <header>
         <div class="container">
             <h1>Melody Huang</h1>
-            <p class="subtitle">Skilled Electrical Engineer (EA) | Master's Student at UNSW</p>
+            <div class="subtitle">Skilled Electrical Engineer (EA) | Master's Student at UNSW</div>
             
             <div class="contact-info">
-                <a href="mailto:melodymengh@gmail.com"><i class="fas fa-envelope"></i> melodymengh@gmail.com</a>
-                <a href="tel:0472827351"><i class="fas fa-phone"></i> 0472 827 351</a>
+                <a href="mailto:melodymengh@gmail.com"><i class="fas fa-envelope"></i> Email Me</a>
+                <a href="tel:0472827351"><i class="fas fa-phone"></i> Call Me</a>
                 <a href="https://www.linkedin.com/in/melodymengh" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <span><i class="fas fa-map-marker-alt"></i> Sydney, NSW, AU</span>
+            </div>
+            <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                <i class="fas fa-map-marker-alt"></i> Sydney, NSW, AU
             </div>
         </div>
     </header>
@@ -221,41 +362,41 @@
     <div class="container">
         
         <section class="summary">
-            <h2><i class="fas fa-user-circle"></i> Professional Summary</h2>
+            <h2><i class="fas fa-user-astronaut"></i> Professional Summary</h2>
             <p>
                 Master of Engineering (Electrical) student at UNSW with a strong academic foundation and project experience in power systems, control, and automation. Skilled in MATLAB, PSCAD, PowerWorld, and CAD tools. Seeking internship, part-time, or casual student engineer opportunities to apply technical expertise in the electrical engineering industry.
             </p>
         </section>
 
         <section>
-            <h2><i class="fas fa-tools"></i> Technical Skills</h2>
+            <h2><i class="fas fa-microchip"></i> Technical Skills</h2>
             
             <p class="category-title">Software & Tools</p>
             <div class="skills-container">
-                <span class="skill-tag">MATLAB</span>
+                <span class="skill-tag"><i class="fas fa-code"></i> MATLAB</span>
                 <span class="skill-tag">PSCAD</span>
                 <span class="skill-tag">PowerWorld</span>
                 <span class="skill-tag">Multisim</span>
                 <span class="skill-tag">AutoCAD</span>
-                <span class="skill-tag">Python</span>
+                <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
                 <span class="skill-tag">Visual Basic</span>
             </div>
 
             <p class="category-title">Electrical Engineering</p>
             <div class="skills-container">
-                <span class="skill-tag">Power Systems Analysis</span>
+                <span class="skill-tag"><i class="fas fa-bolt"></i> Power Systems</span>
                 <span class="skill-tag">Control Theory</span>
                 <span class="skill-tag">Electrical Circuits</span>
                 <span class="skill-tag">Power Electronics</span>
-                <span class="skill-tag">Renewable Integration</span>
+                <span class="skill-tag"><i class="fas fa-solar-panel"></i> Renewable Integration</span>
                 <span class="skill-tag">Load Forecasting</span>
             </div>
 
             <p class="category-title">Standards</p>
             <div class="skills-container">
-                <span class="skill-tag">AEMO Rules</span>
+                <span class="skill-tag"><i class="fas fa-book"></i> AEMO Rules</span>
                 <span class="skill-tag">NER Guidelines</span>
-                <span class="skill-tag">PV Grid Connection Standards</span>
+                <span class="skill-tag">PV Grid Standards</span>
             </div>
         </section>
 
@@ -266,42 +407,42 @@
                 <div>
                     <div class="edu-school">The University of New South Wales (UNSW)</div>
                     <div class="edu-degree">Master of Electrical Engineering</div>
-                    <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">
-                        <strong>Core Courses:</strong> High Voltage System, Power System Equipment & Analysis, Computer Control Systems
+                    <div style="font-size: 0.9rem; color: #666; margin-top: 8px;">
+                        <i class="fas fa-check-circle" style="color:#2ecc71"></i> <strong>Core Courses:</strong> High Voltage System, Power System Equipment & Analysis, Computer Control Systems
                     </div>
                 </div>
-                <div class="edu-date">2024 - Present</div>
+                <div class="edu-date"><span style="background:#e3f2fd; padding:3px 8px; border-radius:4px; font-size:0.85rem; color:#004e92;">2024 - Present</span></div>
             </div>
 
             <div class="edu-item">
                 <div>
                     <div class="edu-school">China Three Gorges University</div>
-                    <div class="edu-degree">Bachelor of Engineering, Major in Electrical Engineering and its Automation</div>
+                    <div class="edu-degree">Bachelor of Engineering, Electrical Engineering and its Automation</div>
                 </div>
-                <div class="edu-date">Sep 2020 - Jul 2024</div>
+                <div class="edu-date" style="color: #888;">Sep 2020 - Jul 2024</div>
             </div>
         </section>
 
         <section>
-            <h2><i class="fas fa-briefcase"></i> Professional & Project Experience</h2>
+            <h2><i class="fas fa-project-diagram"></i> Experience & Projects</h2>
 
             <div class="timeline-item">
                 <div class="job-title">Electrical Engineering Intern - GE Aerospace Job Simulation</div>
                 <div class="company-info">
-                    <span>Remote / Simulation</span>
+                    <span><i class="fas fa-laptop-house"></i> Remote / Simulation</span>
                     <span>2025</span>
                 </div>
                 <ul class="job-details">
                     <li>Designed and configured the power distribution architecture for a new aircraft model, including circuit breaker selection and panel layout.</li>
-                    <li>Produced comprehensive design documentation and verification procedures, establishing testing protocols for environmental stresses (temperature, humidity, vibration).</li>
-                    <li>Diagnosed and resolved navigation system malfunctions under adverse conditions (low visibility, heavy fog) to restore accurate display performance.</li>
+                    <li>Produced comprehensive design documentation and verification procedures, establishing testing protocols for environmental stresses.</li>
+                    <li>Diagnosed and resolved navigation system malfunctions under adverse conditions (low visibility, heavy fog).</li>
                 </ul>
             </div>
 
             <div class="timeline-item">
                 <div class="job-title">Power System Transients & Protection Project</div>
                 <div class="company-info">
-                    <span>UNSW - Academic Project</span>
+                    <span><i class="fas fa-university"></i> UNSW - Academic Project</span>
                     <span>Feb 2025 - Jun 2025</span>
                 </div>
                 <ul class="job-details">
@@ -314,7 +455,7 @@
             <div class="timeline-item">
                 <div class="job-title">High Voltage Cable Simulation Project</div>
                 <div class="company-info">
-                    <span>UNSW - Academic Project</span>
+                    <span><i class="fas fa-university"></i> UNSW - Academic Project</span>
                     <span>Aug 2024 - Nov 2024</span>
                 </div>
                 <ul class="job-details">
@@ -327,7 +468,7 @@
             <div class="timeline-item">
                 <div class="job-title">Engineering Assistant</div>
                 <div class="company-info">
-                    <span>State Grid Power Supply Office</span>
+                    <span><i class="fas fa-building"></i> State Grid Power Supply Office</span>
                     <span>2023</span>
                 </div>
                 <ul class="job-details">
@@ -342,8 +483,8 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Melody Huang. Hosted on GitHub Pages.</p>
+        <p>Made with <i class="fas fa-heart"></i> by Melody Huang. Hosted on GitHub Pages.</p>
     </footer>
 
 </body>
-</html>  
+</html>
